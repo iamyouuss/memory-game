@@ -1,0 +1,40 @@
+body{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    width: 1000px;
+    height: 1000px;
+    grid-gap: 10px;
+    
+}
+
+.card{
+    background-color: rgb(176, 153, 153);
+    border: black 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+}
+
+.background{
+    /* background-image: url(assets/default.png); */
+    background-size: cover;
+}
+
+img{
+    width: 150px;
+    height: 150px;
+}
+
+.hidden{
+display: none;
+}
