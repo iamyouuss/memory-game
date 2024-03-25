@@ -1,5 +1,8 @@
 let grid = document.querySelector(".grid") //lien des images pour les cartes//
 
+let start = document.querySelector('.start');
+let startbtn = document.getElementById('startBtn')
+
 let links = [
     {id: 1, src: 'assets/git.png'},
     {id: 2, src: 'assets/php.png'},
@@ -22,13 +25,23 @@ let tentatives_block = document.querySelector(".tentative")
 let chrono = document.getElementById('chrono');
 
 let décompte = 0;
-let interval;
+let minutes = 0;
+let interval;  
+
+startbtn.addEventListener('click', ()=> {
+    start.classList.add('hidden');
+    timer();
+})
 
 function timer()
 {
-    setInterval(() => {
+  timerVar = setInterval(() => {
         décompte++;
-        chrono.textContent = décompte;
+        if(décompte>59){
+            décompte=0;
+            minutes++
+        }
+        chrono.textContent = minutes+' : '+décompte;
 }, 1000);
 }
 
@@ -75,7 +88,7 @@ function createcard() {
                     });
 
 
-                    timer();
+                    
 
                     if (clickedcard[0].id == clickedcard[1].id) {
                         clickedcard.forEach(card => {
@@ -83,10 +96,11 @@ function createcard() {
                             clickedcard = [];
                         })
 
-                        if (document.querySelectorAll('.matched').length === links.length) {
+                        if (document.querySelectorAll('.matched').length === 16) {
                             // Toutes les paires ont été trouvées, afficher le message de félicitations
+                            clearInterval(timerVar)
                             setTimeout(() => {
-                                alert(`Félicitations, vous avez trouvé toutes les paires en ${tentatives} coups!`);
+                                alert(`Félicitations, vous avez trouvé toutes les paires en ${tentatives} coups !`);
                             }, 500);
                         }
 
