@@ -54,6 +54,7 @@ let tentatives_block = document.querySelector(".tentative")
 
 
 console.log(tentatives_block)
+
 function init() { //fonction pour choisir au hasard une image à chaque clique//
     links = [...links, ...links] //je double le tableau pour avoir 16 cartes//
     links.sort(() => 0.5 - Math.random()) //sans 0.5 une seule dispositon possible//
@@ -75,13 +76,16 @@ function createcard() {
             img.classList.add('card') //je leur donne une taille en leur rattachant la class '.card' déjà existante dans le css//
             grid.appendChild(img) //j'ajoute les img(child) au grid(parent)//
 
+            img.classList.add("unclicked")
+
 
 
             img.addEventListener("click", function c() {
-                tentatives++;
-                tentatives_block.textContent = tentatives
-                
-                if (clickedcard.length < 2) {
+                if (img.classList.contains("unclicked") && clickedcard.length < 2) {
+                    tentatives++;
+                    tentatives_block.textContent = tentatives
+                    this.classList.toggle("unclicked")
+
                     img.setAttribute('src', link.src) //lorsqu'une carte est cliquée je lui attribue une image grâce au tableau links et à la fonction init//
                     // this.removeEventListener('click', c)
                     // img.setAttribute('data-id', link.id)
@@ -89,23 +93,22 @@ function createcard() {
                     clickedcard.push({
                         id: link.id,
                         img: img
-                    })
-                    // console.log(link.id)
-                    console.log(clickedcard)
+                    });
 
-                    if(clickedcard.length===2)
-                    
+///////////////////////////////////
 
-                    if (clickedcard.length === 2 && clickedcard[0].id == clickedcard[1].id) {
+
+                    if (clickedcard[0].id == clickedcard[1].id) {
                         clickedcard.forEach(card => {
                             card.img.classList.add('matched');
+                            clickedcard = [];
                         })
-                          //  img.removeEventListener('click', c);
+                        //  img.removeEventListener('click', c);
 
                         if (document.querySelectorAll('.matched').length === links.length) {
                             // Toutes les paires ont été trouvées, afficher le message de félicitations
                             setTimeout(() => {
-                                alert('Félicitations, vous avez trouvé toutes les paires !');
+                                alert(`Félicitations, vous avez trouvé toutes les paires en ${tentatives} coups!`);
                             }, 500);
                         }
 
@@ -114,22 +117,27 @@ function createcard() {
                             clickedcard.forEach(card => {
                                 if (!card.img.classList.contains('matched')) {
                                     card.img.setAttribute('src', visuel);
+                                    card.img.classList.toggle("unclicked")
                                 }
                             });
                             clickedcard = [];
                             // img.addEventListener('click',c)
 
-                        }, 1000)
+                        }, 500);
+
                     }
+
                 }
+            });
 
 
 
 
 
-            })
-        }) // fin fonction link//
-};
+        })
+}
+
+// fin fonction link//
 
 //     img.setAttribute('src', visuel)
 //     console.log("hello")
