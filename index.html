@@ -1,17 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
- <div class="tentative"></div>
+
+    <header>
+        <div class="timerBlock">
+            <div class="count">Timer :</div>
+            <div class="timer"></div>
+        </div>
+
+        <div class="counterBlock">
+            <div class="count">Count :</div>
+            <div class="tentative"></div>
+        </div>
+
+        <button class="reset"> reset </button>
+    </header>
+
     <main class="grid">
 
     </main>
-   
+
+
+
+    <!--  End OF game -->
+    <div class="endOfGame">
+        <h1>Congratulations</h1>
+        <div class="content">
+            <h2>You succesfully matched all cards in</h2>
+            <div class="timeScore"></div>
+            <p>and</p>
+            <div class="countScore"></div>
+        </div>
+
+        <button class="playAgain">PLAY AGAIN ?</button>
+    </div>
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,15 +1,8 @@
-/*let card = document.querySelector(".card")
-let img = document.querySelector(".img")
+ // conteneur qui va contenir nos cartes
+let grid = document.querySelector(".grid")
 
-img.classList.add("hidden")
 
-card.addEventListener("click", function () {
-    img.classList.toggle("hidden")
-    this.classList.toggle("background")
-})*/
-
-let grid = document.querySelector(".grid") //lien des images pour les cartes//
-
+// Variable (tableau d'objets) qui va contenir les liens de nos images ainsi que les id correspondants
 let links = [{
         id: 1,
         src: 'assets/git.png'
@@ -43,59 +36,115 @@ let links = [{
         src: 'assets/html.png'
     },
 ]
+// Varianle qui va contenir le lien de l'image par défaut pour le dos de nos cartes
+let visuel = 'assets/default.png';
 
-let visuel = 'assets/default.png'; //lien de l'image par défaut pour le dos des cartes//
+// tableau qui va contenir les id des 2 cartes qui ont été activées, pour les comparer
+let clickedcard = [];
 
-let clickedcard = [] //tableau pour ajouter les deux cartes cliquées le tempos deles comparer//
+// compteur pour le nombre de tentatives (clic)
+let tentatives = 0;
 
-let tentatives = 0; //compteur pour le nombre de tentatives//
+// la div qui va contenir le compteur
+let tentatives_block = document.querySelector(".tentative");
 
-let tentatives_block = document.querySelector(".tentative")
+// bouton reset
+let reset = document.querySelector(".reset");
+
+// Variable qui va servir pour stopper le timer
+let game = "inprogress";
+
+// Conteneur qui va s'afficher en fin de partie
+let end = document.querySelector(".endOfGame");
+
+// le body de notre html. le recupérer ici nous servira a changer la couleur du body en fin de partie
+let body = document.querySelector("body");
+
+// div qui va contenir la durée de la partie dans le conteneur de fin de partie
+let timeScore = document.querySelector(".timeScore");
+
+// div qui va contenir le nombre de clic dans le conteneur de fin de partie
+let countScore = document.querySelector(".countScore");
+
+// bouton qui s'affichera en fin de partie pour rejouer
+let playAgain = document.querySelector(".playAgain");
+
+end.classList.add("hide");
+
+// variables utiles pour le timer
+let min = 0;
+let sec = 1;
 
 
-console.log(tentatives_block)
+//Fonction de création du timer
+function timer() {
+    let timer = setInterval(function () {
+        document.querySelector(".timer").innerHTML = min.toString().padStart(2, '0') + ':' + sec.toString().padStart(2, '0');
+        sec++;
+        if (sec > 60) {
+            min++;
+            sec = 0
+        }
 
-function init() { //fonction pour choisir au hasard une image à chaque clique//
-    links = [...links, ...links] //je double le tableau pour avoir 16 cartes//
-    links.sort(() => 0.5 - Math.random()) //sans 0.5 une seule dispositon possible//
+        if (game == "done") {
+            clearInterval(timer);
+        }
+    }, 1000);
 
-    createcard()
+}
+
+
+//Fonction d'initialisation du jeu : creation et melange des cartes
+function init() {
+    links = [...links, ...links]
+    links.sort(() => 0.5 - Math.random())
+
+    createcard();
 }
 init()
 
 
+//fonction de création des cartes
 function createcard() {
-
-
+   
     links.forEach(link =>
-        // j'attribue à chaque carte un élément html 'img' auquel j'ajoute un attribut src que je récupère dans la variable visuel (pour le dos de la carte)//
         {
-            const img = document.createElement('img')
+            // je crée une div, à l'intérieur de laquelle je crée une image
+            let div = document.createElement('div');
+            let img = document.createElement('img')
+            div.appendChild(img)
+
+            // j'ajoute un atribut src à mon image, qui sera l'image par défaut
             img.setAttribute('src', visuel)
+           
+            // j'ajoute à ma div, la classe card déja existante dans le css, afin de lui attribuer du style
+            div.classList.add('card')
+            
+            //j'ajoute les img(child) au grid(parent)
+            grid.appendChild(div) 
 
-            img.classList.add('card') //je leur donne une taille en leur rattachant la class '.card' déjà existante dans le css//
-            grid.appendChild(img) //j'ajoute les img(child) au grid(parent)//
 
+            // classe fictive qui nous servira pour le compteur de clics
             img.classList.add("unclicked")
 
 
-
+            // dévoilement des cartes au clic 
+            // +
+            // initialisation du compteur de clics
             img.addEventListener("click", function c() {
                 if (img.classList.contains("unclicked") && clickedcard.length < 2) {
                     tentatives++;
                     tentatives_block.textContent = tentatives
                     this.classList.toggle("unclicked")
 
-                    img.setAttribute('src', link.src) //lorsqu'une carte est cliquée je lui attribue une image grâce au tableau links et à la fonction init//
-                    // this.removeEventListener('click', c)
-                    // img.setAttribute('data-id', link.id)
+                    img.setAttribute('src', link.src)
+
 
                     clickedcard.push({
                         id: link.id,
                         img: img
                     });
 
-///////////////////////////////////
 
 
                     if (clickedcard[0].id == clickedcard[1].id) {
@@ -106,10 +155,21 @@ function createcard() {
                         //  img.removeEventListener('click', c);
 
                         if (document.querySelectorAll('.matched').length === links.length) {
-                            // Toutes les paires ont été trouvées, afficher le message de félicitations
                             setTimeout(() => {
-                                alert(`Félicitations, vous avez trouvé toutes les paires en ${tentatives} coups!`);
-                            }, 500);
+                                body.style.backgroundColor="rgba(0, 0, 0, .8)"
+                                grid.classList.add("hide")
+                                end.classList.toggle("hide")
+                            if(min<=0)
+                            {
+                                timeScore.textContent = sec + " seconds"
+                            }
+                            else{
+                                timeScore.textContent = min + "minutes and " + sec + " secondes"
+                            }
+                            countScore.textContent = tentatives + " moves"
+                            
+                            }, 200);
+                            game = "done"
                         }
 
                     } else {
@@ -127,28 +187,41 @@ function createcard() {
 
                     }
 
+
                 }
             });
 
+            reset.addEventListener("click", function () {
+                location.reload();
+            })
 
-
+            playAgain.addEventListener("click", function () {
+                location.reload();
+            })
 
 
         })
+
+
+
+
 }
 
-// fin fonction link//
 
-//     img.setAttribute('src', visuel)
-//     console.log("hello")
-// }
-// else{
-//     clickedcard.forEach(function(card)
-//     {
-//         img.setAttribute('src', visuel)
-//     });
-//     clickedcard = []
-// }
+// Initialisation du timer
 
-// clickedcard[0].img.setAttribute('src', visuel);
-//                     clickedcard[1].img.setAttribute('src', visuel);
+let startTimer = false;
+
+grid.addEventListener("click", function StartTimerFunction()
+{
+    if(startTimer==false)
+    {
+        startTimer=true;
+        timer();
+        grid.removeEventListener("click", StartTimerFunction)
+    }
+})
+
+
+// Message de fin de jeu
+

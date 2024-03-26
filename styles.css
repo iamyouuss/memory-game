@@ -7,14 +7,36 @@ body {
     flex-direction: column;
 }
 
-.tentative {
+.tentative, .count , .timer{
     width: 50px;
     height: 50px;
-    margin: 20px;
-    border: black 1px solid;
     color: black;
-    font-size: 40px;
+    font-size: 30px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-align: center;
+}
+
+.count{
+    width: 125px;
+}
+
+.timerBlock, .counterBlock{
+    display: flex;
+    align-items: center;
+    border: 0px solid rgb(43, 99, 91);
+    height: 50px;
+    width: 200px;
+    margin-right: 50px;
+}
+
+.timerBlock{
+    border-right: 1px solid rgb(43, 99, 91);
+    width: 250px;
+}
+
+.counterBlock{
+    margin-right: 10px;
+
 }
 
 .grid {
@@ -27,9 +49,10 @@ body {
 
 }
 
+
 .card {
-    background-color: rgb(176, 153, 153);
-    border: black 1px solid;
+    background-color: rgb(150, 233, 230);
+    border: white 1px solid;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,4 +72,78 @@ img {
 
 .hidden {
     display: none;
+}
+
+.reset 
+{
+    margin-top: 100px;
+}
+
+header{
+    display: flex;
+    background-color: rgb(189, 239, 222);
+    height: 75px;
+    align-items: center;
+    margin:20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.reset{
+    width: 100px;
+    height: 50px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background-color:rgb(76, 220, 191);
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: white;
+    border: none;
+}
+
+/* HIDE CLASS */
+
+.hide{
+    display: none !important;
+}
+
+
+/* END OF GAME */
+.endOfGame {
+    width: 500px;
+    height: 450px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 20px 0px 20px;
+}
+
+.endOfGame h1 {
+    font-size: 50px;
+    letter-spacing: 5px;
+    color: rgb(37, 203, 195);
+    font-weight: 200;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+    color: rgb(27, 108, 107);
+}
+
+.playAgain{
+    width: 140px;
+    height: 60px;
+    color: rgb(37, 203, 195);
+    background-color: white;
+    border: rgb(37, 203, 195) 1px solid;
+}
+
+.playAgain:hover{
+    color:rgb(25, 121, 116);
+    border: rgb(25, 121, 116) 1px solid;
 }
