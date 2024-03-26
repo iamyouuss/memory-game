@@ -100,7 +100,7 @@ let interval;
 
 button.addEventListener('click', ()=> 
 {
-
+    
 
 })
 
@@ -111,6 +111,8 @@ function timer()
         chrono.textContent = décompte;
 }, 1000);
 }
+
+
 
 
 

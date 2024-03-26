@@ -24,6 +24,7 @@ let chrono = document.getElementById('chrono');
 let décompte = 0;
 let interval;
 
+
 function timer()
 {
     setInterval(() => {
