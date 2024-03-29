@@ -41,10 +41,8 @@ body {
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    width: 800px;
-    height: 800px;
+    grid-template-columns: repeat(4, 150px);
+    grid-template-rows: repeat(4, 150px);
     grid-gap: 10px;
 
 }
@@ -56,8 +54,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
 }
 
 .background {
