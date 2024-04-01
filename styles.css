@@ -72,9 +72,10 @@ img {
     display: none;
 }
 
-.reset 
+.reset, .save
 {
     margin-top: 100px;
+    margin-right: 10px;
 }
 
 header{
@@ -87,7 +88,7 @@ header{
     padding-right: 20px;
 }
 
-.reset{
+.reset, .save, .continue{
     width: 100px;
     height: 50px;
     margin-bottom: 20px;
