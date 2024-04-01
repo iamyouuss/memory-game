@@ -135,4 +135,70 @@ refresh.addEventListener('click', () => {
 
 
 
-//timer//
+/* enregistrer la partie dans le local storage */
+
+const save = document.getElementById('save');
+const restore = document.getElementById('restore')
+
+save.addEventListener('click', () => {
+
+    const cards = Array.from(grid.querySelectorAll('.card'));
+    console.log(cards);
+
+    const gameDatas = {
+        tentatives : tentatives,
+        cardsState : Array.from(grid.querySelectorAll('.card')).map(card => ({
+            id : card.id,
+            src : card.src,
+            flipped : !card.classList.contains('unclicked'),
+            matched : card.classList.contains('matched')
+        }))
+    }
+
+    localStorage.setItem('gameDatas', JSON.stringify(gameDatas));
+
+    alert('La partie a été sauvegardée avec succès !');
+
+    clearInterval(timerVar)
+
+    console.log(gameDatas)
+
+})
+
+// Récupérer les données sauvegardées depuis le stockage local
+restore.addEventListener('click', () => {
+    
+    const savedGame = localStorage.getItem('gameDatas');
+    
+    if (savedGame) {
+        // Convertir les données récupérées en objet JavaScript
+        const gameDatas = JSON.parse(savedGame);
+
+        // Restaurer les données de la partie
+        tentatives = gameDatas.tentatives;
+        tentatives_block.textContent = tentatives;
+
+        // Parcourir les données des cartes pour restaurer leur état
+        gameDatas.cardsState.forEach(savedCard => {
+            const card = grid.querySelector(`.card[id="${savedCard.id}"]`);
+            if (card) {
+                if (savedCard.flipped) {
+                    card.classList.remove('unclicked');
+                    card.src = savedCard.src;
+                }
+                if (savedCard.matched) {
+                    card.classList.add('matched');
+                }
+            }
+        });
+
+        // Redémarrer le chronomètre si nécessaire
+        // if (gameDatas.tentatives > 0) {
+        //     timer();
+        // }
+
+        alert('La partie a été restaurée avec succès !');
+    } else {
+        alert('Aucune partie sauvegardée trouvée.');
+    }
+});
