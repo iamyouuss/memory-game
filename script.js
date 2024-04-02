@@ -26,12 +26,7 @@ let chrono = document.getElementById('chrono');
 
 let décompte = 0;
 let minutes = 0;
-let interval;  
-
-startbtn.addEventListener('click', ()=> {
-    start.classList.add('hidden');
-    timer();
-})
+// let interval;  
 
 
 function timer()
@@ -46,6 +41,10 @@ function timer()
 }, 1000);
 }
 
+startbtn.addEventListener('click', ()=> {
+    start.classList.add('hidden');
+    timer();
+})
 
 //fonction pour choisir au hasard une image à chaque clique//
 function init() { 
@@ -54,6 +53,7 @@ function init() {
 
     createcard()
 }
+
 init()
 
 
