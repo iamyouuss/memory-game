@@ -65,6 +65,7 @@ function createcard() {
         {
             const img = document.createElement('img')
             img.setAttribute('src', visuel)
+            img.setAttribute('id',link.id)
 
             img.classList.add('card') //je leur donne une taille en leur rattachant la class '.card' déjà existante dans le css//
             grid.appendChild(img) //j'ajoute les img(child) au grid(parent)//
@@ -81,7 +82,7 @@ function createcard() {
                     this.classList.toggle("unclicked")
 
                     img.setAttribute('src', link.src) //lorsqu'une carte est cliquée je lui attribue une image grâce au tableau links et à la fonction init//
-                  
+                    
 
                     clickedcard.push({
                         id: link.id,
@@ -143,16 +144,16 @@ const restore = document.getElementById('restore')
 
 save.addEventListener('click', () => {
 
-    const cards = Array.from(grid.querySelectorAll('.card'));
-    console.log(cards);
+    const cards = Array.from(grid.querySelectorAll('img'));
+    console.log(cards[0]);
 
     const gameDatas = {
         tentatives : tentatives,
-        cardsState : Array.from(grid.querySelectorAll('.card')).map(card => ({
-            id : card.id,
-            src : card.src,
-            flipped : !card.classList.contains('unclicked'),
-            matched : card.classList.contains('matched')
+        cardsState : Array.from(grid.querySelectorAll('img')).map(img => ({
+            id : img.id,
+            src : img.src,
+            flipped : !img.classList.contains('unclicked'),
+            matched : img.classList.contains('matched')
         }))
     }
 
@@ -181,7 +182,7 @@ restore.addEventListener('click', () => {
 
         // Parcourir les données des cartes pour restaurer leur état
         gameDatas.cardsState.forEach(savedCard => {
-            const card = grid.querySelector(`.card[id="${savedCard.id}"]`);
+            const card = grid.querySelector(`.img[id="${savedCard.id}"]`);
             if (card) {
                 if (savedCard.flipped) {
                     card.classList.remove('unclicked');
