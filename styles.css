@@ -15,32 +15,32 @@ main
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: space-around;
     width: 100%;
     height: 100%;
 }
 
 button{
     z-index: 9;
-    width: 500px;
-    height: 200px;
+    width: 400px;
+    height: 150px;
     font-size: 80px;
     color: rgb(33, 150, 243);
-    background-color: rgb(176, 153, 153);
+    background-color: rgba(176, 153, 153, 0.387);
     border-radius: 10px;
-    border: 5px solid rgb(33, 150, 243);
+    border: 4px solid rgb(33, 150, 243);
     font-family: monospace;
-
+    margin-top: 100px;
 }
 
 .start
 {
     display: flex;
     justify-content: center;
-    align-items: center;
     background-color: rgb(255, 255, 255);
     z-index: 8;
     position: absolute;
-    width: 2000px;
+    width: 1200px;
     height: 1200px;
 }
 
@@ -49,39 +49,37 @@ button{
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 40px;
+    width: 700px;
 }
 
+.color {
+    color: rgb(33, 150, 243);
+}
 
 #chrono
 {
     width: 150px;
     height: 50px;
-    margin: 20px;
-    border: rgb(33, 150, 243) 3px solid;
+    border: rgb(33, 150, 243) 4px solid;
     color: black;
-    border-radius: 10px;
     text-align: center;
 }
 
 .tentative {
     width: 50px;
     height: 50px;
-    margin: 20px;
-    border: rgb(33, 150, 243) 3px solid;
+    border: rgb(33, 150, 243) 4px solid;
     color: black;
-    border-radius: 10px;    
     text-align: center;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    width: 800px;
-    height: 800px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     grid-gap: 20px;
-    margin-bottom: 50px;
 }
 
 .grid img
@@ -90,8 +88,8 @@ button{
 }
 
 .card {
-    background-color: rgba(176, 153, 153, 0.421);
-    border: rgb(33, 150, 243) 3px solid;
+    background-color: rgba(176, 153, 153, 0.539);
+    border: rgb(33, 150, 243) 4px solid;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,9 +112,15 @@ button{
     opacity: 0.5;
 }
 
+.btn
+{
+    width: 892px;
+    display: flex;
+    justify-content: space-around;
+}
+
 .btn input
 {
-    margin: 50px;
     height: 50px;
     width: 250px;
     font-size: 30px;
@@ -124,6 +128,7 @@ button{
     color: rgb(33, 150, 243);
     font-family:monospace;
     border-radius: 10px;
-    border: rgb(33, 150, 243) 3px solid;
+    color: rgb(33, 150, 243);
+    border: rgb(33, 150, 243) 4px solid;
 }
 
