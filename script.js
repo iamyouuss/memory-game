@@ -146,7 +146,6 @@
                  });
 
 
-
                  if (clickedcard[0].id == clickedcard[1].id) {
                      clickedcard.forEach(card => {
                          card.img.classList.add('matched');
@@ -193,7 +192,7 @@
          // initialisation bouton reset
          reset.addEventListener("click", function () {
 
-            // reproduit le "refresh" de la page
+             // reproduit le "refresh" de la page
              location.reload();
          })
 
@@ -205,85 +204,87 @@
 
      })
 
-    // bouton sauvegarder
+     // bouton sauvegarder
      let saveBtn = document.querySelector(".save")
 
      saveBtn.addEventListener("click", function () {
 
-        // sauvegarder l'ordre des images
+         // sauvegarder l'ordre des images
          localStorage.setItem("saveOrder", JSON.stringify(links))
 
          // sauvegarder les images "matchées"
          let matchedCards = document.querySelectorAll(".matched");
          let matchedCardsData = [];
 
-         matchedCards.forEach(function(card)
-         {
-            let cardData = card.getAttribute("data-id");
-                
-            matchedCardsData.push(cardData)
-         
+         matchedCards.forEach(function (card) {
+             let cardData = card.getAttribute("data-id");
+
+             matchedCardsData.push(cardData)
+
          })
-        
+
          localStorage.setItem("matchedCards", JSON.stringify(matchedCardsData));
 
 
          // sauvegarder le timer
-         localStorage.setItem("saveTimerMin",min)
-         localStorage.setItem("saveTimerSec",sec)
-         
+         localStorage.setItem("saveTimerMin", min)
+         localStorage.setItem("saveTimerSec", sec)
+
 
          // sauvegarder le counter
-         localStorage.setItem("saveCounter",tentatives)
-         
-         });
-         
+         localStorage.setItem("saveCounter", tentatives)
+
+     });
 
 
-    // bouton continuer
+
+     // bouton continuer
      let continueBtn = document.querySelector(".continue")
 
      continueBtn.addEventListener("click", function () {
 
-        // récupérer le counter sauvegardé
-        let saveCounter = localStorage.getItem("saveCounter")
-        tentatives = saveCounter
+         // récupérer le counter sauvegardé
+         let saveCounter = localStorage.getItem("saveCounter")
+         tentatives = saveCounter
 
-        // Afficher le counter savegardé dès lors que la partie est chargée. sans pour autant qu'il soit actif
-        tentatives_block.textContent = saveCounter
-        
-        // récupérer l'ordre des images sauvegardé
-        let order = JSON.parse(localStorage.getItem("saveOrder"));
+         // Afficher le counter savegardé dès lors que la partie est chargée. sans pour autant qu'il soit actif
+         tentatives_block.textContent = saveCounter
 
-        // récupérer les images matchées sauvegardées
-        let savedMatchedCards = JSON.parse(localStorage.getItem("matchedCards"));
+         // récupérer l'ordre des images sauvegardé
+         let order = JSON.parse(localStorage.getItem("saveOrder"));
 
 
+         // récupérer les images matchées sauvegardées
+         let savedMatchedCards = JSON.parse(localStorage.getItem("matchedCards"));
+         console.log(savedMatchedCards)
 
-        // récupérer le timer sauvegardé
-        let saveSec = localStorage.getItem("saveTimerSec");
-        let saveMin = localStorage.getItem("saveTimerMin");
-        sec = saveSec;
-        min = saveMin;
 
-        // Afficher le timer sauvegardé dès lors que la partie est chargée. sans pour autant qu'il soit activé.
-        document.querySelector(".timer").innerHTML = min.toString().padStart(2, '0') + ':' + sec.toString().padStart(2, '0');
-        
-        // Parcourir chaque element img qui à été créé
-        document.querySelectorAll("img").forEach(function(image, index) {
-            // Vérifie si l'identifiant de l'image est contenu dans savedMatchedCards
-            if (savedMatchedCards.includes(image.getAttribute("data-id"))) {
-                image.classList.add("matched")
-            } else {
-                console.log("no matching");
-            }
-        
-            // instructions à chaque clic sur un element img
-            image.addEventListener("click", function() {
-                image.setAttribute("src", order[index].src);
-            });
-        });
-        
+         // récupérer le timer sauvegardé
+         let saveSec = localStorage.getItem("saveTimerSec");
+         let saveMin = localStorage.getItem("saveTimerMin");
+         sec = saveSec;
+         min = saveMin;
+
+         // Afficher le timer sauvegardé dès lors que la partie est chargée. sans pour autant qu'il soit activé.
+         document.querySelector(".timer").innerHTML = min.toString().padStart(2, '0') + ':' + sec.toString().padStart(2, '0');
+
+         // Parcourir chaque element img qui à été créé
+         document.querySelectorAll("img").forEach(function (image, index) {
+             // Vérifie si l'identifiant de l'image est contenu dans savedMatchedCards
+             if (savedMatchedCards.includes(image.getAttribute("data-id"))) {
+                 image.classList.add("matched")
+                 image.setAttribute("src", order[index].src)
+
+             } else {
+                 console.log("no matching");
+             }
+
+             // instructions à chaque clic sur un element img
+             image.addEventListener("click", function () {
+                 image.setAttribute("src", order[index].src);
+             });
+         });
+
 
      })
 
